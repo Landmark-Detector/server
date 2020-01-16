@@ -14,7 +14,6 @@ class TwitterController {
 
     request.post({ url, oauth }, function(e, r, body) {
       if (e) res.status(500).json(e)
-      console.log(body)
 
       const res_data = qs.parse(body)
 
