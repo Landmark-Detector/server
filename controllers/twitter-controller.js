@@ -31,7 +31,7 @@ class TwitterController {
       {
         url: 'https://api.twitter.com/oauth/access_token',
         qs: {
-          oauth_consumer_key: 'zdfx5AIFG8jeEgsyH26HHy56z',
+          oauth_consumer_key: process.env.TWITTER_CONSUMER_SECRET,
           oauth_token,
           oauth_verifier,
         },
@@ -54,8 +54,8 @@ class TwitterController {
       {
         url: 'https://api.twitter.com/1.1/account/verify_credentials.json',
         oauth: {
-          consumer_key: 'zdfx5AIFG8jeEgsyH26HHy56z',
-          consumer_secret: 't2qRQarfS3gmYH7FFiEzKFHC3gVqIjRpxrpC1Ia0ezZbDSuUN7',
+          consumer_key: process.env.TWITTER_CONSUMER_KEY,
+          consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
           token: req.query.oauth_token,
           token_secret: req.query.oauth_token_secret,
         },
