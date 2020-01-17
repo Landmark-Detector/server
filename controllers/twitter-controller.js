@@ -5,7 +5,8 @@ class TwitterController {
   static requestToken(req, res, next) {
     const url = 'https://api.twitter.com/oauth/request_token'
     const oauth = {
-      callback: 'http://localhost:3000/parse-token',
+      // callback: 'http://localhost:3000/parse-token',
+      callback: 'http://localhost:1234/callback/twitter.html',
       consumer_key: process.env.TWITTER_CONSUMER_KEY,
       consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
       token: process.env.TWITTER_TOKEN,
@@ -31,7 +32,7 @@ class TwitterController {
       {
         url: 'https://api.twitter.com/oauth/access_token',
         qs: {
-          oauth_consumer_key: 'zdfx5AIFG8jeEgsyH26HHy56z',
+          oauth_consumer_key: process.env.TWITTER_CONSUMER_KEY,
           oauth_token,
           oauth_verifier,
         },
@@ -54,8 +55,8 @@ class TwitterController {
       {
         url: 'https://api.twitter.com/1.1/account/verify_credentials.json',
         oauth: {
-          consumer_key: 'zdfx5AIFG8jeEgsyH26HHy56z',
-          consumer_secret: 't2qRQarfS3gmYH7FFiEzKFHC3gVqIjRpxrpC1Ia0ezZbDSuUN7',
+          consumer_key: process.env.TWITTER_CONSUMER_KEY,
+          consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
           token: req.query.oauth_token,
           token_secret: req.query.oauth_token_secret,
         },
@@ -69,7 +70,13 @@ class TwitterController {
 
         console.log(body)
 
-        res.redirect('http://localhost:3000')
+        const result = {
+          email: body.email,
+          username: body.screen_name,
+        }
+
+        res.json(result)
+        // res.redirect('http://localhost:3000')
         // res.redirect(
         // `http://localhost:3000/post-twitter?oauth_token=${req.query.oauth_token}&oauth_token_secret=${req.query.oauth_token_secret}`,
         // )
