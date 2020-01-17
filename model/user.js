@@ -14,7 +14,8 @@ const UserSchema = new Schema({
                     return false
                 })
             }, 
-            message: props => `${props.value} already use`}
+            message: props => `${props.value} already use`
+        }
     }
 })
 

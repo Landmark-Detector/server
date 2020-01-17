@@ -6,6 +6,6 @@ const upload = require('../middlewares/upload')
 
 router.get('/picture', pictureController)
 router.post('/picture', upload.single('file'),pictureController.upload)
-router.post('/user/login', userController)
+router.post('/user/login', userController.login)
 
 module.exports = router
