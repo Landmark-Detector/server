@@ -72,6 +72,8 @@ class TwitterController {
         const result = {
           email: body.email,
           username: body.screen_name,
+          token: req.query.oauth_token,
+          token_secret: req.query.oauth_token_secret,
         }
 
         res.json(result)

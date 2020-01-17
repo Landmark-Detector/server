@@ -1,19 +1,15 @@
-if(process.env.NODE_ENV === 'development') require ('dotenv').config()
+if (process.env.NODE_ENV === 'development') require('dotenv').config()
 
+const cors = require('cors')
 const express = require('express')
 const app = express()
-const cors = require('cors')
-const mongoose = require('mongoose')
-const router = require('./routes/index')
+
+require('./config/mongodb')
 
 app.use(cors())
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
+app.use('/', require('./routes'))
+app.use(require('./middlewares/error-handler'))
 
-app.use(router)
-
-mongoose.connect(process.env.MONGODB_URI, {useCreateIndex: true, useUnifiedTopology:true, useNewUrlParser:true})
-
-app.listen(process.env.PORT, ()=>{
-    console.log(`server running on port ${process.env.PORT}`)
-})
+module.exports = app
