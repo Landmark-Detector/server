@@ -8,10 +8,11 @@ router.get('/', function(req, res, next) {
   res.json({ message: 'Server alive' })
 })
 router.get('/picture', pictureController)
-router.post('/picture', upload.single('file'), pictureController.upload)
-router.post('/user/login', userController)
+router.post('/user/login', userController.login)
+router.post('/picture', upload.single('file'),pictureController.upload)
 router.get('/request-token', TwitterController.requestToken)
 router.get('/parse-token', TwitterController.parseToken)
 router.get('/get-user', TwitterController.getUser)
+
 
 module.exports = router
