@@ -43,7 +43,7 @@ class TwitterController {
         let user_id = res1.user_id
         let screen_name = res1.screen_name
         res.redirect(
-          `http://localhost:3000/get-user?oauth_token=${oauth1}&oauth_token_secret=${oauth1_secret}&user_id=${user_id}&screen_name=${screen_name}`,
+          `http://35.240.152.89/get-user?oauth_token=${oauth1}&oauth_token_secret=${oauth1_secret}&user_id=${user_id}&screen_name=${screen_name}`,
         )
       },
     )
