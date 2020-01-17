@@ -5,8 +5,8 @@ class TwitterController {
   static requestToken(req, res, next) {
     const url = 'https://api.twitter.com/oauth/request_token'
     const oauth = {
-      // callback: 'http://localhost:3000/parse-token',
-      callback: 'http://localhost:1234/callback/twitter.html',
+      callback: 'http://localhost:3000/parse-token',
+      // callback: 'http://localhost:1234/callback/twitter.html',
       consumer_key: process.env.TWITTER_CONSUMER_KEY,
       consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
       token: process.env.TWITTER_TOKEN,
@@ -43,7 +43,7 @@ class TwitterController {
         let user_id = res1.user_id
         let screen_name = res1.screen_name
         res.redirect(
-          `http://35.240.152.89/get-user?oauth_token=${oauth1}&oauth_token_secret=${oauth1_secret}&user_id=${user_id}&screen_name=${screen_name}`,
+          `http://localhost:3000/get-user?oauth_token=${oauth1}&oauth_token_secret=${oauth1_secret}&user_id=${user_id}&screen_name=${screen_name}`,
         )
       },
     )
@@ -81,6 +81,34 @@ class TwitterController {
         // res.redirect(
         // `http://localhost:3000/post-twitter?oauth_token=${req.query.oauth_token}&oauth_token_secret=${req.query.oauth_token_secret}`,
         // )
+      },
+    )
+  }
+
+  static uploadImage(req, res, next) {
+    const baseUrl = 'https://upload.twitter.com/1.1/media/upload.json'
+
+    request.post(
+      {
+        url: 'https://api.twitter.com/1.1/statuses/update.json',
+        oauth: {
+          consumer_key: process.env.TWITTER_CONSUMER_KEY,
+          consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+          token: req.query.oauth_token,
+          token_secret: req.query.oauth_token_secret,
+        },
+        qs: {
+          status: 'Trying twitting from my web app.',
+        },
+      },
+      function(e, r, body) {
+        if (e) res.status(500).json(e)
+
+        console.log('=========================')
+        console.log(body)
+        // console.log(res_data)
+
+        res.redirect('http://localhost:3000')
       },
     )
   }

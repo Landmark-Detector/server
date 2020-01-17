@@ -9,7 +9,12 @@ module.exports = function(err, req, res, next) {
       res.status(400).json({ errors })
       break
 
+    case 'BadRequest':
+      res.status(400).json({ errors: err.message })
+      break
+
     default:
       res.status(500).json(err)
+      break
   }
 }
